@@ -43,16 +43,27 @@ export const homePageQueryString = `
 	}
 `;
 
-export const workPageQueryString = `
-	*[_type == "workPage"] {
+export const aboutPageQueryString = `
+	*[_type == 'aboutPage'][0] {
 		...,
-		seoTitle,
-		seoDescription,
+		team[] {
+			...,
+			headshot {
+				asset-> {
+					url
+				}
+			}
+		}
 	}
 `;
 
-export const projectsQueryString = `
-	*[_type == 'project'] | order(orderRank) [0...100] {
+export const workQueryString = `
+	*[_type == 'work'] | order(orderRank) [0...100] {
 		...,
+		image {
+			asset-> {
+				url
+			}
+		}
 	}
 `;

@@ -1,10 +1,10 @@
 export const theme = {
 	colours: {
-		black: '#1A1919',
-		white: '#F2F3EF'
+		black: '#000000',
+		white: '#FFFFFF'
 	},
 	fonts: {
-		default: 'arial'
+		default: 'HaasGrot, sans-serif'
 	},
 	mediaBreakpoints: {
 		desktop: '(min-width: 1680px)',

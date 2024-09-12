@@ -3,15 +3,13 @@ import { NextSeo } from 'next-seo';
 import {
 	HomePageType,
 	SiteSettingsType,
-	TransitionsType,
-	WorkType
+	TransitionsType
 } from '../shared/types/types';
 import { motion } from 'framer-motion';
 import client from '../client';
 import {
-	homePageQueryString,
-	siteSettingsQueryString,
-	workQueryString
+	aboutPageQueryString,
+	siteSettingsQueryString
 } from '../lib/sanityQueries';
 
 const PageWrapper = styled(motion.div)``;
@@ -19,16 +17,14 @@ const PageWrapper = styled(motion.div)``;
 type Props = {
 	data: HomePageType;
 	siteSettings: SiteSettingsType;
-	work: WorkType[];
 	pageTransitionVariants: TransitionsType;
 };
 
 const Page = (props: Props) => {
-	const { data, siteSettings, work, pageTransitionVariants } = props;
+	const { data, siteSettings, pageTransitionVariants } = props;
 
 	console.log('data', data);
 	console.log('siteSettings', siteSettings);
-	console.log('work', work);
 
 	return (
 		<PageWrapper
@@ -41,21 +37,19 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			Home
+			About
 		</PageWrapper>
 	);
 };
 
 export async function getStaticProps() {
 	const siteSettings = await client.fetch(siteSettingsQueryString);
-	const data = await client.fetch(homePageQueryString);
-	const work = await client.fetch(workQueryString);
+	const data = await client.fetch(aboutPageQueryString);
 
 	return {
 		props: {
 			data,
-			siteSettings,
-			work
+			siteSettings
 		}
 	};
 }

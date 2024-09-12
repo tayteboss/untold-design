@@ -35,18 +35,50 @@ export type SlugType = {
 	current: string;
 };
 
-export type SiteSettingsType = {};
+export type SiteSettingsType = {
+	acknowledgementOfCountry: string;
+	email: string;
+	established: number;
+	phone: string;
+	tagline: string;
+};
 
 export type HomePageType = {
 	seoTitle: string;
 	seoDescription: string;
 };
 
-export type WorkPageType = {
+export type AboutPageType = {
 	seoTitle: string;
 	seoDescription: string;
+	tagline: string;
+	clients: { name: string; link: string }[];
+	team: { name: string; image: { asset: { url: string } } }[];
+	services: { name: string; description: string }[];
+};
+
+export type WorkType = {
+	client: string;
+	description: string;
+	year: number;
+	image: {
+		asset: { url: string };
+	};
 };
 
 export type ProjectType = {
 	slug: SlugType;
+	propertyName: string;
+	clientName: string;
+	concepts: {
+		title: string;
+		description: string;
+		pdf: { asset: { url: string } };
+		images: {
+			caption: string;
+			image: {
+				asset: { url: string };
+			};
+		}[];
+	}[];
 };
