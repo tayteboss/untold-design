@@ -2,7 +2,7 @@ const sanityClient = require('@sanity/client');
 const fs = require('fs');
 
 const client = sanityClient.createClient({
-    projectId: 'xxx',
+    projectId: 'vj4l7m8z',
     dataset: 'production',
     useCdn: false,
     apiVersion: '2023-10-24',
@@ -11,15 +11,7 @@ const client = sanityClient.createClient({
 const getSiteData = async () => {
     const query = `
     *[_type == "siteSettings"][0] {
-        footerConsultationCta,
-      instagramUrl,
-      linkedInUrl,
-      tagline,
-      twitterUrl,
-      footerConsultationButtonTitle,
-      footerConsultationButtonUrl,
-      mobileMenuConsultationCta,
-      mobileMenuConsultationButtonTitle,
+       ...,
     }
   `;
 

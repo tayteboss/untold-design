@@ -86,6 +86,8 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h1 {
 		font-size: ${pxToRem(48)};
 		line-height: ${pxToRem(43)};
+		text-transform: uppercase;
+		font-weight: 800;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(24)};
@@ -97,6 +99,8 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h2 {
 		font-size: ${pxToRem(24)};
 		line-height: ${pxToRem(24)};
+		text-transform: uppercase;
+		font-weight: 800;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(16)};
@@ -108,6 +112,8 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h3 {
 		font-size: ${pxToRem(24)};
 		line-height: ${pxToRem(24)};
+		text-transform: uppercase;
+		font-weight: 800;
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(16)};
@@ -119,6 +125,9 @@ export const GlobalStyles = createGlobalStyle`
 	.type-h4 {
 		font-size: ${pxToRem(24)};
 		line-height: ${pxToRem(24)};
+		text-transform: uppercase;
+		font-weight: 800;
+		font-family: var(--font-default);
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(16)};
