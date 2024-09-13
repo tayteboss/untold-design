@@ -62,7 +62,10 @@ export const workQueryString = `
 		...,
 		image {
 			asset-> {
-				url
+				url,
+				metadata {
+					lqip
+				}
 			}
 		}
 	}

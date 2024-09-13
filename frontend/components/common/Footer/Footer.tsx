@@ -8,6 +8,8 @@ const FooterWrapper = styled.footer`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	position: relative;
+	z-index: 500;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		display: none;
@@ -20,7 +22,7 @@ const Footer = (props: Props) => {
 	const { email, phone } = props;
 
 	return (
-		<FooterWrapper>
+		<FooterWrapper className="footer">
 			<LinkSwitchButton
 				initialTitle="Email"
 				hoveredTitle={email}

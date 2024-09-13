@@ -58,11 +58,11 @@ export type AboutPageType = {
 };
 
 export type WorkType = {
-	client: string;
+	title: string;
 	description: string;
 	year: number;
 	image: {
-		asset: { url: string };
+		asset: { url: string; metadata: { lqip: string } };
 	};
 };
 

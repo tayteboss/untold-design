@@ -39,6 +39,7 @@ export const GlobalStyles = createGlobalStyle`
 	html {
 		background: var(--colour-white);
 		font-size: 16px;
+		cursor: crosshair;
 
 		&.no-scroll {
 			overflow-y: hidden;

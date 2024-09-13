@@ -13,9 +13,10 @@ import {
 	siteSettingsQueryString,
 	workQueryString
 } from '../lib/sanityQueries';
+import WorkTab from '../components/blocks/WorkTab';
 
 const PageWrapper = styled(motion.div)`
-	height: 50vh;
+	min-height: 50vh;
 `;
 
 type Props = {
@@ -23,10 +24,12 @@ type Props = {
 	siteSettings: SiteSettingsType;
 	work: WorkType[];
 	pageTransitionVariants: TransitionsType;
+	homePageTab: 'work' | 'index';
 };
 
 const Page = (props: Props) => {
-	const { data, siteSettings, work, pageTransitionVariants } = props;
+	const { data, siteSettings, work, pageTransitionVariants, homePageTab } =
+		props;
 
 	console.log('data', data);
 	console.log('siteSettings', siteSettings);
@@ -43,7 +46,7 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			Home
+			<WorkTab isActive={homePageTab === 'work'} work={work} />
 		</PageWrapper>
 	);
 };
