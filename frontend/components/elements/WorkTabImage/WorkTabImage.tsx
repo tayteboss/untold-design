@@ -36,17 +36,32 @@ const DetailsWrapper = styled.div`
 	top: calc(100% + 10px);
 	left: 0;
 	width: 100%;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 const Text = styled.p`
 	&:first-child {
 		margin-right: ${pxToRem(70)};
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			margin-right: 0;
+		}
 	}
 
 	&:last-child {
 		margin-left: auto;
 		flex: 1;
 		text-align: right;
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			flex: unset;
+			text-align: center;
+			margin-left: 0;
+		}
 	}
 `;
 
@@ -93,7 +108,9 @@ const WorkTabImage = (props: Props) => {
 									{description}
 								</Text>
 							)}
-							{year && <Text className="type-small">{year}</Text>}
+							{year && (
+								<Text className="type-small">({year})</Text>
+							)}
 						</DetailsWrapper>
 					</ImageWrapper>
 				)}

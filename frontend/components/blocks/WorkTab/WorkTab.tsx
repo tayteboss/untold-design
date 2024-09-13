@@ -10,21 +10,28 @@ const WorkTabWrapper = styled.section`
 	position: relative;
 `;
 
-const Index = styled.p`
+const CounterWrapper = styled.div`
 	position: fixed;
 	top: 50%;
 	left: 0;
 	transform: translateY(-50%);
-	padding: ${pxToRem(20)};
+	width: 100%;
+	padding: 0 ${pxToRem(20)};
+	display: flex;
+	justify-content: space-between;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		top: unset;
+		bottom: ${pxToRem(20)};
+		left: 50%;
+		transform: translateX(-50%) translateY(0);
+		width: auto;
+	}
 `;
 
-const Length = styled.p`
-	position: fixed;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
-	padding: ${pxToRem(20)};
-`;
+const Index = styled.p``;
+
+const Length = styled.p``;
 
 const TriggerWrapper = styled.div`
 	position: fixed;
@@ -76,9 +83,6 @@ const WorkTab = (props: Props) => {
 		<>
 			{isActive && (
 				<>
-					<Index className="type-small">
-						{handleCounter(activeIndex)}
-					</Index>
 					<TriggerWrapper>
 						<PrevTrigger onClick={() => handlePrevious()} />
 						<NextTrigger onClick={() => handleNext()} />
@@ -97,7 +101,12 @@ const WorkTab = (props: Props) => {
 								/>
 							))}
 					</WorkTabWrapper>
-					<Length className="type-small">/{work.length}</Length>
+					<CounterWrapper>
+						<Index className="type-small">
+							{handleCounter(activeIndex)}
+						</Index>
+						<Length className="type-small">/{work.length}</Length>
+					</CounterWrapper>
 				</>
 			)}
 		</>
