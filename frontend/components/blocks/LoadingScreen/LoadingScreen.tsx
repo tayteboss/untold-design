@@ -59,9 +59,9 @@ const wrapperVariants = {
 			duration: 0.1,
 			ease: 'easeInOut',
 			when: 'afterChildren',
-			staggerChildren: 0.1,
+			staggerChildren: 0.05,
 			delayChildren: 0.5,
-			staggerDirection: 1,
+			staggerDirection: -1,
 			delay: 0.2
 		},
 		transitionEnd: {
@@ -86,7 +86,7 @@ const firstLineVariants = {
 		}
 	},
 	exit: {
-		y: -15,
+		y: 0,
 		opacity: 0,
 		transition: {
 			duration: 0.01,
@@ -111,47 +111,44 @@ const lineVariants = {
 		}
 	},
 	exit: {
-		y: -15,
+		y: 0,
+		opacity: 0,
 		transition: {
 			duration: 0.01,
 			ease: 'easeInOut'
-		},
-		transitionEnd: {
-			delay: 1,
-			opacity: 0
 		}
 	}
 };
 
-const loadingLineVariants = {
-	hidden: {
-		width: 0,
-		opacity: 1,
-		transition: {
-			duration: 0.3,
-			ease: 'easeInOut'
-		}
-	},
-	visible: {
-		width: '100%',
-		opacity: 1,
-		transition: {
-			duration: 1,
-			ease: 'easeInOut'
-		}
-	},
-	exit: {
-		width: '100%',
-		opacity: 1,
-		transition: {
-			duration: 0.01, // Match this with the width animation if needed
-			ease: 'easeInOut'
-		},
-		transitionEnd: {
-			display: 'none' // Apply display: none once opacity reaches 0
-		}
-	}
-};
+// const loadingLineVariants = {
+// 	hidden: {
+// 		width: 0,
+// 		opacity: 1,
+// 		transition: {
+// 			duration: 0.3,
+// 			ease: 'easeInOut'
+// 		}
+// 	},
+// 	visible: {
+// 		width: '100%',
+// 		opacity: 1,
+// 		transition: {
+// 			duration: 1,
+// 			ease: 'easeInOut'
+// 		}
+// 	},
+// 	exit: {
+// 		width: '100%',
+// 		opacity: 1,
+// 		transition: {
+// 			duration: 0.01, // Match this with the width animation if needed
+// 			ease: 'easeInOut'
+// 		},
+// 		transitionEnd: {
+// 			display: 'none' // Apply display: none once opacity reaches 0
+// 		}
+// 	}
+// };
 
 const LoadingScreen = (props: Props) => {
 	const { email, established, tagline, setLoadingAnimationComplete } = props;

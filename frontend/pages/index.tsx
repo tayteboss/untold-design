@@ -14,7 +14,9 @@ import {
 	workQueryString
 } from '../lib/sanityQueries';
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+	height: 50vh;
+`;
 
 type Props = {
 	data: HomePageType;

@@ -27,6 +27,7 @@ const App = (props: Props) => {
 	const [hasVisited, setHasVisited] = useState<boolean>(false);
 	const [loadingAnimationComplete, setLoadingAnimationComplete] =
 		useState<boolean>(false);
+	const [homePageTab, setHomePageTab] = useState<'work' | 'index'>('work');
 
 	const router = useRouter();
 	const routerEvents = router.events;
@@ -60,6 +61,8 @@ const App = (props: Props) => {
 			<ThemeProvider theme={theme}>
 				<Layout
 					setLoadingAnimationComplete={setLoadingAnimationComplete}
+					setHomePageTab={setHomePageTab}
+					homePageTab={homePageTab}
 				>
 					<AnimatePresence
 						mode="wait"
@@ -70,6 +73,7 @@ const App = (props: Props) => {
 							key={router.asPath}
 							pageTransitionVariants={pageTransitionVariants}
 							loadingAnimationComplete={loadingAnimationComplete}
+							homePageTab={homePageTab}
 						/>
 					</AnimatePresence>
 				</Layout>

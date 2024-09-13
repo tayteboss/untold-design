@@ -74,12 +74,16 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	a {
-		text-decoration: underline;
+		text-decoration: none;
 		color: var(--colour-black);
 	}
 
 	button {
 		cursor: pointer;
+	}
+
+	.lowercase {
+		text-transform: lowercase !important;
 	}
 
 	h1,
