@@ -14,6 +14,7 @@ import {
 	workQueryString
 } from '../lib/sanityQueries';
 import WorkTab from '../components/blocks/WorkTab';
+import IndexTab from '../components/blocks/IndexTab';
 
 const PageWrapper = styled(motion.div)`
 	min-height: 50vh;
@@ -47,6 +48,7 @@ const Page = (props: Props) => {
 				description={data?.seoDescription || ''}
 			/>
 			<WorkTab isActive={homePageTab === 'work'} work={work} />
+			<IndexTab isActive={homePageTab === 'index'} work={work} />
 		</PageWrapper>
 	);
 };
