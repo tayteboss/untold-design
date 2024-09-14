@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { AboutPageType } from '../../../shared/types/types';
 import pxToRem from '../../../utils/pxToRem';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const ContactListWrapper = styled.div`
 	display: flex;
@@ -17,7 +18,7 @@ const ContactListWrapper = styled.div`
 
 const Title = styled.h4``;
 
-const List = styled.ul`
+const List = styled(motion.ul)`
 	a {
 		&:hover {
 			text-decoration: underline;
@@ -25,13 +26,49 @@ const List = styled.ul`
 	}
 `;
 
-const ListItem = styled.li`
+const ListItem = styled(motion.li)`
 	text-align: center;
 `;
 
 type Props = {
 	title: string;
 	data: AboutPageType['clients'] | AboutPageType['services'];
+};
+
+const wrapperVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut',
+			staggerChildren: 0.07,
+			delayChildren: 0.1
+		}
+	}
+};
+
+const childVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		}
+	}
 };
 
 const ContactList = (props: Props) => {
@@ -42,10 +79,10 @@ const ContactList = (props: Props) => {
 	return (
 		<ContactListWrapper>
 			<Title className="type-p">{title}</Title>
-			<List>
+			<List variants={wrapperVariants} initial="hidden" animate="visible">
 				{hasData &&
 					data.map((item, i) => (
-						<ListItem key={i}>
+						<ListItem key={i} variants={childVariants}>
 							{typeof item?.link === 'string' ? (
 								<Link href={item?.link} className="p">
 									{item?.name || ''}

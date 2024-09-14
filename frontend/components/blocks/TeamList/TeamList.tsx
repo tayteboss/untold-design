@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { AboutPageType } from '../../../shared/types/types';
 import pxToRem from '../../../utils/pxToRem';
+import { motion } from 'framer-motion';
 
 const TeamListWrapper = styled.div<{ $isHovered: boolean }>`
 	position: relative;
@@ -28,14 +29,14 @@ const Title = styled.h4`
 	margin-bottom: ${pxToRem(10)};
 `;
 
-const List = styled.ul`
+const List = styled(motion.ul)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: ${pxToRem(10)};
 `;
 
-const TeamMember = styled.li`
+const TeamMember = styled(motion.li)`
 	&:hover {
 		p:first-child {
 			text-decoration: underline;
@@ -51,6 +52,42 @@ const Text = styled.p`
 	text-align: center;
 `;
 
+const wrapperVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut',
+			staggerChildren: 0.3,
+			delayChildren: 0.1
+		}
+	}
+};
+
+const childVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		}
+	}
+};
+
 type Props = {
 	data: AboutPageType['team'];
 	setIsHovered: (props: { isHovered: boolean; headshot: number }) => void;
@@ -65,7 +102,13 @@ const TeamList = (props: Props) => {
 	return (
 		<TeamListWrapper $isHovered={isHovered.isHovered}>
 			<Title className="type-p team-title">Team</Title>
-			<List className="team-list">
+			<List
+				variants={wrapperVariants}
+				initial="hidden"
+				animate="visible"
+				exit="hidden"
+				className="team-list"
+			>
 				{hasData &&
 					data.map((member, i) => (
 						<TeamMember
@@ -79,6 +122,7 @@ const TeamList = (props: Props) => {
 								setIsHovered({ isHovered: false, headshot: 0 })
 							}
 							className="team-member"
+							variants={childVariants}
 						>
 							<Text>{member?.name || ''}</Text>
 							<Text>{member?.role || ''}</Text>

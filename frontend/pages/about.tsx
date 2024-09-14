@@ -18,7 +18,9 @@ import TeamList from '../components/blocks/TeamList';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const PageWrapper = styled(motion.div)`
+const PageWrapper = styled(motion.div)``;
+
+const Inner = styled(motion.div)`
 	padding: ${pxToRem(220)} 10vw ${pxToRem(80)};
 	min-height: calc(100vh - var(--header-h));
 	display: flex;
@@ -36,7 +38,7 @@ const PageWrapper = styled(motion.div)`
 	}
 `;
 
-const ContactWrapper = styled.div`
+const ContactWrapper = styled(motion.div)`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -68,7 +70,7 @@ const ContactLink = styled.div`
 	color: var(--colour-black);
 `;
 
-const TaglineWrapper = styled.div``;
+const TaglineWrapper = styled(motion.div)``;
 
 const Tagline = styled.h1`
 	color: var(--colour-black);
@@ -76,7 +78,7 @@ const Tagline = styled.h1`
 	text-transform: unset;
 `;
 
-const ListWrapper = styled.div`
+const ListWrapper = styled(motion.div)`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -90,7 +92,7 @@ const ListWrapper = styled.div`
 	}
 `;
 
-const Aoc = styled.p`
+const Aoc = styled(motion.p)`
 	display: none;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
@@ -112,9 +114,9 @@ const ImageWrapper = styled.div`
 	background: var(--colour-black);
 `;
 
-const listVariants = {
+const wrapperVariants = {
 	hidden: {
-		opacity: 1,
+		opacity: 0,
 		transition: {
 			duration: 0.1,
 			ease: 'easeInOut'
@@ -125,21 +127,8 @@ const listVariants = {
 		transition: {
 			duration: 0.1,
 			ease: 'easeInOut',
-			staggerChildren: 0.05,
-			delayChildren: 0.1
-		}
-	},
-	exit: {
-		opacity: 0,
-		transition: {
-			duration: 0.1,
-			ease: 'easeInOut',
-			when: 'afterChildren',
 			staggerChildren: 0.1,
-			staggerDirection: 1
-		},
-		transitionEnd: {
-			display: 'none'
+			when: 'beforeChildren'
 		}
 	}
 };
@@ -157,17 +146,6 @@ const itemVariants = {
 		transition: {
 			duration: 0.01,
 			ease: 'easeInOut'
-		}
-	},
-	exit: {
-		y: -15,
-		transition: {
-			duration: 0.01,
-			ease: 'easeInOut'
-		},
-		transitionEnd: {
-			delay: 1,
-			opacity: 0
 		}
 	}
 };
@@ -200,69 +178,77 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			<ContactWrapper>
-				{siteSettings?.email && (
-					<Link href={`mailto:${siteSettings?.email}`}>
-						<ContactItem variants={itemVariants}>
-							<ContactTitle className="type-p">
-								Email
-							</ContactTitle>
-							<ContactLink className="type-p">
-								{siteSettings?.email}
-							</ContactLink>
-						</ContactItem>
-					</Link>
+			<Inner
+				variants={wrapperVariants}
+				initial="hidden"
+				animate="visible"
+			>
+				<ContactWrapper variants={itemVariants}>
+					{siteSettings?.email && (
+						<Link href={`mailto:${siteSettings?.email}`}>
+							<ContactItem>
+								<ContactTitle className="type-p">
+									Email
+								</ContactTitle>
+								<ContactLink className="type-p">
+									{siteSettings?.email}
+								</ContactLink>
+							</ContactItem>
+						</Link>
+					)}
+					{siteSettings?.phone && (
+						<Link href={`tel:${siteSettings?.phone}`}>
+							<ContactItem>
+								<ContactTitle className="type-p">
+									Phone
+								</ContactTitle>
+								<ContactLink className="type-p">
+									{siteSettings?.phone}
+								</ContactLink>
+							</ContactItem>
+						</Link>
+					)}
+				</ContactWrapper>
+				<TaglineWrapper variants={itemVariants}>
+					<Tagline>{data?.tagline}</Tagline>
+				</TaglineWrapper>
+				<ListWrapper variants={itemVariants}>
+					<ContactList title="Clients" data={data?.clients} />
+					<TeamList
+						data={data?.team}
+						setIsHovered={setIsHovered}
+						isHovered={isHovered}
+					/>
+					<ContactList title="Services" data={data?.services} />
+				</ListWrapper>
+				{siteSettings?.acknowledgementOfCountry && (
+					<Aoc variants={itemVariants}>
+						{siteSettings?.acknowledgementOfCountry}
+					</Aoc>
 				)}
-				{siteSettings?.phone && (
-					<Link href={`tel:${siteSettings?.phone}`}>
-						<ContactItem variants={itemVariants}>
-							<ContactTitle className="type-p">
-								Phone
-							</ContactTitle>
-							<ContactLink className="type-p">
-								{siteSettings?.phone}
-							</ContactLink>
-						</ContactItem>
-					</Link>
-				)}
-			</ContactWrapper>
-			<TaglineWrapper>
-				<Tagline>{data?.tagline}</Tagline>
-			</TaglineWrapper>
-			<ListWrapper>
-				<ContactList title="Clients" data={data?.clients} />
-				<TeamList
-					data={data?.team}
-					setIsHovered={setIsHovered}
-					isHovered={isHovered}
-				/>
-				<ContactList title="Services" data={data?.services} />
-			</ListWrapper>
-			{siteSettings?.acknowledgementOfCountry && (
-				<Aoc>{siteSettings?.acknowledgementOfCountry}</Aoc>
-			)}
-			{isHovered.isHovered &&
-				data?.team[isHovered.headshot]?.headshot?.asset && (
-					<ImageWrapper>
-						<Image
-							src={
-								data?.team[isHovered.headshot]?.headshot?.asset
-									?.url || ''
-							}
-							alt={`${
-								data?.team[isHovered.headshot]?.name
-							}'s headshot`}
-							width={0}
-							height={0}
-							sizes="33vw"
-							style={{
-								objectFit: 'contain',
-								width: '100%',
-								height: 'auto'
-							}}
-						/>
-					</ImageWrapper>
-				)}
+				{isHovered.isHovered &&
+					data?.team[isHovered.headshot]?.headshot?.asset && (
+						<ImageWrapper>
+							<Image
+								src={
+									data?.team[isHovered.headshot]?.headshot
+										?.asset?.url || ''
+								}
+								alt={`${
+									data?.team[isHovered.headshot]?.name
+								}'s headshot`}
+								width={0}
+								height={0}
+								sizes="33vw"
+								style={{
+									objectFit: 'contain',
+									width: '100%',
+									height: 'auto'
+								}}
+							/>
+						</ImageWrapper>
+					)}
+			</Inner>
 		</PageWrapper>
 	);
 };
