@@ -35,6 +35,12 @@ export default {
       validation: (Rule: any) => Rule.required(),
     },
     {
+      title: 'Date',
+      name: 'date',
+      type: 'string',
+      validation: (Rule: any) => Rule.required(),
+    },
+    {
       title: 'Concepts',
       name: 'concepts',
       type: 'array',

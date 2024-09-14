@@ -218,10 +218,11 @@ export const GlobalStyles = createGlobalStyle`
 
 	.embla__container {
 		display: flex;
+		gap: ${pxToRem(20)};
 	}
 
 	.embla__slide {
-		flex: 0 0 100%;
+		flex: 0 0 33vw;
 		min-width: 0;
 	}
 

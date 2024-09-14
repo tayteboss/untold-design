@@ -75,6 +75,7 @@ export type ProjectType = {
 	slug: SlugType;
 	propertyName: string;
 	clientName: string;
+	date: string;
 	concepts: {
 		title: string;
 		description: string;

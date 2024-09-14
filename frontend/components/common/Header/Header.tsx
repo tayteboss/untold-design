@@ -34,6 +34,10 @@ const NavItem = styled.li``;
 const Button = styled.button<{ $isActive: boolean }>`
 	opacity: ${(props) => props.$isActive && 0.2};
 	color: var(--colour-white);
+
+	&:hover {
+		opacity: 0.2;
+	}
 `;
 
 const LinkTag = styled.div<{ $isActive: boolean }>`

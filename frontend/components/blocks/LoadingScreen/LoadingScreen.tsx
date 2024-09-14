@@ -32,10 +32,6 @@ const LoadingLine = styled(motion.div)`
 	z-index: 1001;
 `;
 
-type Props = {
-	setLoadingAnimationComplete: (completed: boolean) => void;
-} & Pick<SiteSettingsType, 'email' | 'established' | 'tagline'>;
-
 const wrapperVariants = {
 	hidden: {
 		opacity: 1,
@@ -150,8 +146,16 @@ const lineVariants = {
 // 	}
 // };
 
+type Props = {
+	line1: string;
+	line2: string;
+	line3: string;
+	line4: string;
+	setLoadingAnimationComplete?: (loadingAnimationComplete: boolean) => void;
+};
+
 const LoadingScreen = (props: Props) => {
-	const { email, established, tagline, setLoadingAnimationComplete } = props;
+	const { line1, line2, line3, line4, setLoadingAnimationComplete } = props;
 
 	const [animationState, setAnimationState] = useState<
 		'hidden' | 'visible' | 'exit'
@@ -178,12 +182,12 @@ const LoadingScreen = (props: Props) => {
 				initial="hidden"
 				animate={animationState}
 				exit="exit"
-				onAnimationComplete={() => setLoadingAnimationComplete(true)}
+				onAnimationComplete={() => setLoadingAnimationComplete?.(true)}
 			>
-				<Line variants={firstLineVariants}>© UNTOLD DESIGN</Line>
-				<Line variants={lineVariants}>{email || ''}</Line>
-				<Line variants={lineVariants}>"{tagline || ''}"</Line>
-				<Line variants={lineVariants}>EST.{established || ''}</Line>
+				<Line variants={firstLineVariants}>{line1 || ''}</Line>
+				<Line variants={lineVariants}>{line2 || ''}</Line>
+				<Line variants={lineVariants}>{line3 || ''}</Line>
+				<Line variants={lineVariants}>{line4 || ''}</Line>
 			</LoadingScreenWrapper>
 		</>
 	);
