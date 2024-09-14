@@ -2,11 +2,14 @@ import styled from 'styled-components';
 import pxToRem from '../../../utils/pxToRem';
 import { SiteSettingsType } from '../../../shared/types/types';
 import LinkSwitchButton from '../../elements/LinkSwitchButton';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const FooterWrapper = styled.footer`
 	padding: ${pxToRem(20)};
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-end;
 	width: 100%;
 	position: relative;
 	z-index: 500;
@@ -16,10 +19,37 @@ const FooterWrapper = styled.footer`
 	}
 `;
 
-type Props = Pick<SiteSettingsType, 'email' | 'phone'>;
+const Aoc = styled.p`
+	color: var(--colour-black);
+	font-size: ${pxToRem(10)};
+	line-height: ${pxToRem(10)};
+	padding: 0 ${pxToRem(40)};
+	text-align: center;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: none;
+	}
+`;
+
+type Props = Pick<
+	SiteSettingsType,
+	'email' | 'phone' | 'acknowledgementOfCountry'
+>;
 
 const Footer = (props: Props) => {
-	const { email, phone } = props;
+	const { email, phone, acknowledgementOfCountry } = props;
+
+	const [useAoc, setUseAoc] = useState(false);
+
+	const pathname = usePathname();
+
+	useEffect(() => {
+		if (pathname === '/about') {
+			setUseAoc(true);
+		} else {
+			setUseAoc(false);
+		}
+	}, [pathname]);
 
 	return (
 		<FooterWrapper className="footer">
@@ -28,6 +58,9 @@ const Footer = (props: Props) => {
 				hoveredTitle={email}
 				link={`mailto:${email}`}
 			/>
+			{acknowledgementOfCountry && useAoc && (
+				<Aoc>{acknowledgementOfCountry}</Aoc>
+			)}
 			<LinkSwitchButton
 				initialTitle="Phone"
 				hoveredTitle={phone}

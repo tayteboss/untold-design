@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NextSeo } from 'next-seo';
 import {
-	HomePageType,
+	AboutPageType,
 	SiteSettingsType,
 	TransitionsType
 } from '../shared/types/types';
@@ -11,17 +11,180 @@ import {
 	aboutPageQueryString,
 	siteSettingsQueryString
 } from '../lib/sanityQueries';
+import Link from 'next/link';
+import pxToRem from '../utils/pxToRem';
+import ContactList from '../components/blocks/ContactList';
+import TeamList from '../components/blocks/TeamList';
+import Image from 'next/image';
+import { useState } from 'react';
 
-const PageWrapper = styled(motion.div)``;
+const PageWrapper = styled(motion.div)`
+	padding: ${pxToRem(220)} 10vw ${pxToRem(80)};
+	min-height: calc(100vh - var(--header-h));
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: ${pxToRem(60)};
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
+		padding: ${pxToRem(220)} ${pxToRem(20)} ${pxToRem(80)};
+	}
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		padding: ${pxToRem(116)} ${pxToRem(15)} ${pxToRem(40)};
+		gap: ${pxToRem(40)};
+	}
+`;
+
+const ContactWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+
+	a {
+		flex: 1;
+	}
+`;
+
+const ContactItem = styled(motion.div)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+
+	&:hover {
+		div:last-child {
+			text-decoration: underline;
+		}
+	}
+`;
+
+const ContactTitle = styled.h4`
+	color: var(--colour-black);
+	text-transform: uppercase;
+`;
+
+const ContactLink = styled.div`
+	color: var(--colour-black);
+`;
+
+const TaglineWrapper = styled.div``;
+
+const Tagline = styled.h1`
+	color: var(--colour-black);
+	text-align: center;
+	text-transform: unset;
+`;
+
+const ListWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	position: relative;
+	z-index: 10;
+	mix-blend-mode: difference;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		flex-direction: column;
+		gap: ${pxToRem(40)};
+	}
+`;
+
+const Aoc = styled.p`
+	display: none;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: block;
+		text-align: center;
+		padding: 0 ${pxToRem(12)};
+	}
+`;
+
+const ImageWrapper = styled.div`
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 30vw;
+	max-height: 90vh;
+	z-index: 5;
+	pointer-events: none;
+	background: var(--colour-black);
+`;
+
+const listVariants = {
+	hidden: {
+		opacity: 1,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut',
+			staggerChildren: 0.05,
+			delayChildren: 0.1
+		}
+	},
+	exit: {
+		opacity: 0,
+		transition: {
+			duration: 0.1,
+			ease: 'easeInOut',
+			when: 'afterChildren',
+			staggerChildren: 0.1,
+			staggerDirection: 1
+		},
+		transitionEnd: {
+			display: 'none'
+		}
+	}
+};
+
+const itemVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		}
+	},
+	exit: {
+		y: -15,
+		transition: {
+			duration: 0.01,
+			ease: 'easeInOut'
+		},
+		transitionEnd: {
+			delay: 1,
+			opacity: 0
+		}
+	}
+};
 
 type Props = {
-	data: HomePageType;
+	data: AboutPageType;
 	siteSettings: SiteSettingsType;
 	pageTransitionVariants: TransitionsType;
 };
 
 const Page = (props: Props) => {
 	const { data, siteSettings, pageTransitionVariants } = props;
+
+	const [isHovered, setIsHovered] = useState<{
+		isHovered: boolean;
+		headshot: number;
+	}>({ isHovered: false, headshot: 0 });
 
 	console.log('data', data);
 	console.log('siteSettings', siteSettings);
@@ -37,7 +200,69 @@ const Page = (props: Props) => {
 				title={data?.seoTitle || ''}
 				description={data?.seoDescription || ''}
 			/>
-			About
+			<ContactWrapper>
+				{siteSettings?.email && (
+					<Link href={`mailto:${siteSettings?.email}`}>
+						<ContactItem variants={itemVariants}>
+							<ContactTitle className="type-p">
+								Email
+							</ContactTitle>
+							<ContactLink className="type-p">
+								{siteSettings?.email}
+							</ContactLink>
+						</ContactItem>
+					</Link>
+				)}
+				{siteSettings?.phone && (
+					<Link href={`tel:${siteSettings?.phone}`}>
+						<ContactItem variants={itemVariants}>
+							<ContactTitle className="type-p">
+								Phone
+							</ContactTitle>
+							<ContactLink className="type-p">
+								{siteSettings?.phone}
+							</ContactLink>
+						</ContactItem>
+					</Link>
+				)}
+			</ContactWrapper>
+			<TaglineWrapper>
+				<Tagline>{data?.tagline}</Tagline>
+			</TaglineWrapper>
+			<ListWrapper>
+				<ContactList title="Clients" data={data?.clients} />
+				<TeamList
+					data={data?.team}
+					setIsHovered={setIsHovered}
+					isHovered={isHovered}
+				/>
+				<ContactList title="Services" data={data?.services} />
+			</ListWrapper>
+			{siteSettings?.acknowledgementOfCountry && (
+				<Aoc>{siteSettings?.acknowledgementOfCountry}</Aoc>
+			)}
+			{isHovered.isHovered &&
+				data?.team[isHovered.headshot]?.headshot?.asset && (
+					<ImageWrapper>
+						<Image
+							src={
+								data?.team[isHovered.headshot]?.headshot?.asset
+									?.url || ''
+							}
+							alt={`${
+								data?.team[isHovered.headshot]?.name
+							}'s headshot`}
+							width={0}
+							height={0}
+							sizes="33vw"
+							style={{
+								objectFit: 'contain',
+								width: '100%',
+								height: 'auto'
+							}}
+						/>
+					</ImageWrapper>
+				)}
 		</PageWrapper>
 	);
 };

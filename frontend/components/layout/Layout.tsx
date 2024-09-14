@@ -54,7 +54,11 @@ const Layout = (props: Props) => {
 			<ReactLenis root>
 				<Main>{children}</Main>
 			</ReactLenis>
-			<Footer email={siteSettings.email} phone={siteSettings.phone} />
+			<Footer
+				email={siteSettings.email}
+				phone={siteSettings.phone}
+				acknowledgementOfCountry={siteSettings.acknowledgementOfCountry}
+			/>
 		</>
 	);
 };

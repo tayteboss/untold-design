@@ -53,8 +53,13 @@ export type AboutPageType = {
 	seoDescription: string;
 	tagline: string;
 	clients: { name: string; link: string }[];
-	team: { name: string; image: { asset: { url: string } } }[];
-	services: { name: string; description: string }[];
+	team: {
+		name: string;
+		role: string;
+		year: string;
+		headshot: { asset: { url: string } };
+	}[];
+	services: { name: string }[];
 };
 
 export type WorkType = {
