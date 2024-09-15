@@ -12,6 +12,8 @@ import ConceptSlide from '../components/blocks/ConceptSlide';
 import pxToRem from '../utils/pxToRem';
 import { siteSettingsQueryString } from '../lib/sanityQueries';
 import Thankyou from '../components/blocks/Thankyou';
+import { useState } from 'react';
+import Link from 'next/link';
 
 const PageWrapper = styled(motion.div)`
 	min-height: 50vh;
@@ -19,6 +21,39 @@ const PageWrapper = styled(motion.div)`
 
 const ConceptsWrapper = styled.div`
 	padding-top: ${pxToRem(220)};
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		padding-top: ${pxToRem(110)};
+	}
+`;
+
+const MobileContact = styled.div`
+	display: none;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		display: flex;
+		justify-content: space-between;
+		padding: ${pxToRem(15)} ${pxToRem(15)} ${pxToRem(20)};
+
+		a {
+			flex: 1;
+		}
+	}
+`;
+
+const ContactItem = styled(motion.div)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const ContactTitle = styled.h4`
+	color: var(--colour-black);
+	text-transform: uppercase;
+`;
+
+const ContactLink = styled.div`
+	color: var(--colour-black);
 `;
 
 type Props = {
@@ -30,8 +65,7 @@ type Props = {
 const Page = (props: Props) => {
 	const { data, siteSettings, pageTransitionVariants } = props;
 
-	console.log('data', data);
-	console.log('siteSettings', siteSettings);
+	const [accordionActive, setAccordionActive] = useState<number>(0);
 
 	const hasConcepts = data?.concepts?.length > 0;
 
@@ -62,6 +96,9 @@ const Page = (props: Props) => {
 							description={concept?.description}
 							pdf={concept?.pdf}
 							images={concept?.images}
+							setAccordionActive={setAccordionActive}
+							accordionActive={accordionActive === i}
+							index={i}
 						/>
 					))}
 			</ConceptsWrapper>
@@ -70,6 +107,32 @@ const Page = (props: Props) => {
 				tagline={siteSettings?.tagline}
 				established={siteSettings?.established}
 			/>
+			<MobileContact>
+				{siteSettings?.email && (
+					<Link href={`mailto:${siteSettings?.email}`}>
+						<ContactItem>
+							<ContactTitle className="type-small">
+								Email
+							</ContactTitle>
+							<ContactLink className="type-small">
+								{siteSettings?.email}
+							</ContactLink>
+						</ContactItem>
+					</Link>
+				)}
+				{siteSettings?.phone && (
+					<Link href={`tel:${siteSettings?.phone}`}>
+						<ContactItem>
+							<ContactTitle className="type-small">
+								Phone
+							</ContactTitle>
+							<ContactLink className="type-small">
+								{siteSettings?.phone}
+							</ContactLink>
+						</ContactItem>
+					</Link>
+				)}
+			</MobileContact>
 		</PageWrapper>
 	);
 };

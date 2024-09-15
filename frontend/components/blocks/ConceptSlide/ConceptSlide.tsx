@@ -1,22 +1,46 @@
 import styled from 'styled-components';
 import { ProjectType } from '../../../shared/types/types';
-import ConceptContentBlock from '../ConceptContentBlock';
 import ConceptCarousel from '../ConceptCarousel';
 import pxToRem from '../../../utils/pxToRem';
 
-type Props = {
-	title: ProjectType['concepts'][0]['title'];
-	description: ProjectType['concepts'][0]['description'];
-	pdf: ProjectType['concepts'][0]['pdf'];
-	images: ProjectType['concepts'][0]['images'];
-};
-
 const ConceptSlideWrapper = styled.section`
 	padding: ${pxToRem(20)} 0;
-	border-bottom: 1px solid var(--colour-black);
+	position: relative;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		padding: ${pxToRem(15)} 0;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 20px;
+		height: 1px;
+		width: calc(100% - 40px);
+		background: var(--colour-black);
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			width: calc(100% - 30px);
+			left: 15px;
+		}
+	}
 
 	&:first-child {
-		border-top: 1px solid var(--colour-black);
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 20px;
+			height: 1px;
+			width: calc(100% - 40px);
+			background: var(--colour-black);
+
+			@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+				width: calc(100% - 30px);
+				left: 15px;
+			}
+		}
 	}
 `;
 
@@ -24,18 +48,39 @@ const Inner = styled.div`
 	position: relative;
 `;
 
+type Props = {
+	title: ProjectType['concepts'][0]['title'];
+	description: ProjectType['concepts'][0]['description'];
+	pdf: ProjectType['concepts'][0]['pdf'];
+	images: ProjectType['concepts'][0]['images'];
+	setAccordionActive: (value: number) => void;
+	accordionActive: boolean;
+	index: number;
+};
+
 const ConceptSlide = (props: Props) => {
-	const { title, description, pdf, images } = props;
+	const {
+		title,
+		description,
+		pdf,
+		images,
+		setAccordionActive,
+		accordionActive,
+		index
+	} = props;
 
 	return (
 		<ConceptSlideWrapper>
 			<Inner>
-				<ConceptContentBlock
+				<ConceptCarousel
+					images={images}
 					title={title}
 					description={description}
 					pdf={pdf}
+					setAccordionActive={setAccordionActive}
+					accordionActive={accordionActive}
+					index={index}
 				/>
-				<ConceptCarousel images={images} />
 			</Inner>
 		</ConceptSlideWrapper>
 	);

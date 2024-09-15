@@ -10,6 +10,10 @@ const ThankyouWrapper = styled.section`
 	flex-direction: column;
 	padding: ${pxToRem(180)} 0;
 
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		padding: ${pxToRem(100)} 0;
+	}
+
 	&:has(.thankyou-hover:hover) {
 		.thankyou-fadeout {
 			opacity: 0.2;
@@ -20,7 +24,14 @@ const ThankyouWrapper = styled.section`
 	}
 `;
 
-const Text = styled.p``;
+const Text = styled.p`
+	&.type-h1 {
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			font-size: ${pxToRem(16)};
+			line-height: ${pxToRem(14.4)};
+		}
+	}
+`;
 
 type Props = {
 	email: SiteSettingsType['email'];

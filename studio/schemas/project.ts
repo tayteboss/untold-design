@@ -66,7 +66,6 @@ export default {
               title: 'PDF',
               name: 'pdf',
               type: 'file',
-              validation: (Rule: any) => Rule.required(),
             },
             {
               title: 'Images',
