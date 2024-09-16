@@ -22,6 +22,7 @@ const HeaderWrapper = styled.header`
 
 const Logo = styled.div`
 	color: var(--colour-white);
+	font-family: var(--font-bold);
 `;
 
 const NavBar = styled.ul`
@@ -34,6 +35,7 @@ const NavItem = styled.li``;
 const Button = styled.button<{ $isActive: boolean }>`
 	opacity: ${(props) => props.$isActive && 0.2};
 	color: var(--colour-white);
+	font-family: var(--font-bold);
 
 	&:hover {
 		opacity: 0.2;
@@ -43,6 +45,7 @@ const Button = styled.button<{ $isActive: boolean }>`
 const LinkTag = styled.div<{ $isActive: boolean }>`
 	opacity: ${(props) => props.$isActive && 0.2};
 	color: var(--colour-white);
+	font-family: var(--font-bold);
 `;
 
 type Props = {
@@ -67,7 +70,7 @@ const Header = (props: Props) => {
 
 	return (
 		<HeaderWrapper className="header">
-			<Link href="/">
+			<Link href={pathname === '/' ? '/#home' : '/'}>
 				<Logo className="type-h2">© UNTOLD DESIGN</Logo>
 			</Link>
 			<NavBar>

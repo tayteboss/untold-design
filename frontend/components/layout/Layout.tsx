@@ -47,8 +47,8 @@ const Layout = (props: Props) => {
 				<LoadingScreen
 					line1="© UNTOLD DESIGN"
 					line2={siteSettings?.email}
-					line3={siteSettings?.established}
-					line4={`EST.${siteSettings?.tagline}`}
+					line3={`${siteSettings?.tagline}`}
+					line4={`EST.${siteSettings?.established}`}
 					setLoadingAnimationComplete={setLoadingAnimationComplete}
 				/>
 			)}

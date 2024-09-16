@@ -1,5 +1,11 @@
 @font-face {
-	font-family: 'HaasGrot';
+	font-family: 'HaasGrot Med';
 	src: url('/fonts/HaasGrotDisp-65Medium.ttf') format('truetype'), url('/fonts/HaasGrotDisp-65Medium.otf') format('opentype');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'HaasGrot Bold';
+	src: url('/fonts/HaasGrotDisp-75Bold.otf') format('opentype');
 	font-display: swap;
 }

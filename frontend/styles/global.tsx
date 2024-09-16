@@ -7,6 +7,7 @@ export const GlobalStyles = createGlobalStyle`
 		--colour-white: ${theme.colours.white};
 		--colour-black: ${theme.colours.black};
 		--font-default: ${theme.fonts.default};
+		--font-bold: ${theme.fonts.bold};
 		--transition-speed-default: ${theme.transitionSpeed.default};
 		--transition-speed-fast: ${theme.transitionSpeed.fast};
 		--transition-speed-extra-fast: ${theme.transitionSpeed.extraFast};

@@ -54,6 +54,10 @@ type Props = {
 	pdf: ProjectType['concepts'][0]['pdf'];
 	images: ProjectType['concepts'][0]['images'];
 	setAccordionActive: (value: number) => void;
+	setLightBoxData: (value: {
+		images: false | ProjectType['concepts'][0]['images'];
+		index: number;
+	}) => void;
 	accordionActive: boolean;
 	index: number;
 };
@@ -65,6 +69,7 @@ const ConceptSlide = (props: Props) => {
 		pdf,
 		images,
 		setAccordionActive,
+		setLightBoxData,
 		accordionActive,
 		index
 	} = props;
@@ -78,6 +83,7 @@ const ConceptSlide = (props: Props) => {
 					description={description}
 					pdf={pdf}
 					setAccordionActive={setAccordionActive}
+					setLightBoxData={setLightBoxData}
 					accordionActive={accordionActive}
 					index={index}
 				/>

@@ -68,7 +68,7 @@ const WorkTab = (props: Props) => {
 	const hasWork = work?.length > 0;
 
 	const handleCounter = (index: number) => {
-		return index < 10 ? `0${index + 1}` : `${index + 1}`;
+		return index + 1 < 10 ? `0${index + 1}` : `${index + 1}`;
 	};
 
 	const handleNext = () => {

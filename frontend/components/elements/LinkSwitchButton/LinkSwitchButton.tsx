@@ -4,7 +4,9 @@ import styled from 'styled-components';
 
 const LinkSwitchButtonWrapper = styled.div``;
 
-const Title = styled.div``;
+const Title = styled.div`
+	font-family: var(--font-bold);
+`;
 
 type Props = {
 	initialTitle: string;

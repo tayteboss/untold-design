@@ -76,6 +76,7 @@ const Tagline = styled.h1`
 	color: var(--colour-black);
 	text-align: center;
 	text-transform: unset;
+	font-family: var(--font-bold);
 `;
 
 const ListWrapper = styled(motion.div)`
@@ -163,9 +164,6 @@ const Page = (props: Props) => {
 		isHovered: boolean;
 		headshot: number;
 	}>({ isHovered: false, headshot: 0 });
-
-	console.log('data', data);
-	console.log('siteSettings', siteSettings);
 
 	return (
 		<PageWrapper

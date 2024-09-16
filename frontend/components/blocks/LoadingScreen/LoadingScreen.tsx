@@ -21,6 +21,7 @@ const LoadingScreenWrapper = styled(motion.div)`
 const Line = styled(motion.h4)`
 	text-align: center;
 	color: var(--colour-white);
+	font-family: var(--font-bold);
 `;
 
 const LoadingLine = styled(motion.div)`

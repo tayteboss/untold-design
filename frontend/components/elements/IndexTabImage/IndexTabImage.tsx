@@ -1,12 +1,23 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 import pxToRem from '../../../utils/pxToRem';
-import { WorkType } from '../../../shared/types/types';
+import { ProjectType, WorkType } from '../../../shared/types/types';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import useViewportWidth from '../../../hooks/useViewportWidth';
 
-const IndexTabImageWrapper = styled(motion.div)<{ $isActive: boolean }>`
+const IndexTabImageWrapper = styled(motion.div)`
 	grid-column: span 3;
+	filter: grayscale(100%);
+
+	&:hover {
+		filter: grayscale(0);
+		cursor: zoom-in;
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			cursor: pointer;
+		}
+	}
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
 		grid-column: span 4;
@@ -21,9 +32,6 @@ const IndexTabImageWrapper = styled(motion.div)<{ $isActive: boolean }>`
 	}
 
 	img {
-		filter: ${(props) =>
-			props.$isActive ? 'greyscale(0)' : 'grayscale(100%)'};
-
 		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 			filter: grayscale(0) !important;
 		}
@@ -49,7 +57,7 @@ const DetailsWrapper = styled.div`
 	padding-top: ${pxToRem(10)};
 `;
 
-const Text = styled.p<{ $isActive: boolean }>`
+const Text = styled.p`
 	&:first-child {
 		margin-right: ${pxToRem(20)};
 	}
@@ -69,6 +77,11 @@ type Props = {
 	description?: WorkType['description'];
 	year?: WorkType['year'];
 	isPriority?: boolean;
+	setLightBoxData: (value: {
+		images: false | ProjectType['concepts'][0]['images'] | WorkType[];
+		index: number;
+	}) => void;
+	work: WorkType[];
 };
 
 const wrapperVariants = {
@@ -87,9 +100,16 @@ const wrapperVariants = {
 };
 
 const IndexTabImage = (props: Props) => {
-	const { index, image, title, description, year, isPriority } = props;
-
-	const [isActive, setIsActive] = useState(false);
+	const {
+		index,
+		image,
+		title,
+		description,
+		year,
+		isPriority,
+		setLightBoxData,
+		work
+	} = props;
 
 	const imageUrl = image?.asset?.url;
 	const blurDataURL = image?.asset?.metadata?.lqip;
@@ -98,11 +118,16 @@ const IndexTabImage = (props: Props) => {
 		return index < 10 ? `0${index}` : `${index}`;
 	};
 
+	const viewport = useViewportWidth();
+	const isMobile = viewport === 'mobile' || viewport === 'tabletPortrait';
+
 	return (
 		<IndexTabImageWrapper
 			variants={wrapperVariants}
-			onMouseEnter={() => setIsActive(!isActive)}
-			$isActive={isActive}
+			onClick={() => {
+				if (isMobile) return;
+				setLightBoxData({ images: work, index: index - 1 });
+			}}
 		>
 			<Inner>
 				{imageUrl && (
@@ -122,10 +147,8 @@ const IndexTabImage = (props: Props) => {
 				)}
 			</Inner>
 			<DetailsWrapper>
-				<Text $isActive={isActive} className="type-small">
-					{handleIndex(index)}
-				</Text>
-				<Text $isActive={isActive} className="type-small">
+				<Text className="type-small">{handleIndex(index)}</Text>
+				<Text className="type-small">
 					{title || ''}, {description || ''} ({year || ''})
 				</Text>
 			</DetailsWrapper>

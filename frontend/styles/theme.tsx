@@ -4,7 +4,8 @@ export const theme = {
 		white: '#FFFFFF'
 	},
 	fonts: {
-		default: 'HaasGrot, sans-serif'
+		default: 'HaasGrot Med, sans-serif',
+		bold: 'HaasGrot Bold, sans-serif'
 	},
 	mediaBreakpoints: {
 		desktop: '(min-width: 1680px)',

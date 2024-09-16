@@ -123,6 +123,7 @@ const TeamList = (props: Props) => {
 							}
 							className="team-member"
 							variants={childVariants}
+							key={i}
 						>
 							<Text>{member?.name || ''}</Text>
 							<Text>{member?.role || ''}</Text>

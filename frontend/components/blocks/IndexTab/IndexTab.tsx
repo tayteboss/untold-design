@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { WorkType } from '../../../shared/types/types';
+import { ProjectType, WorkType } from '../../../shared/types/types';
 import LayoutWrapper from '../../layout/LayoutWrapper';
 import LayoutGrid from '../../layout/LayoutGrid';
 import IndexTabImage from '../../elements/IndexTabImage';
@@ -39,10 +39,14 @@ const wrapperVariants = {
 type Props = {
 	isActive: boolean;
 	work: WorkType[];
+	setLightBoxData: (value: {
+		images: false | ProjectType['concepts'][0]['images'] | WorkType[];
+		index: number;
+	}) => void;
 };
 
 const IndexTab = (props: Props) => {
-	const { isActive, work } = props;
+	const { isActive, work, setLightBoxData } = props;
 
 	const hasWork = work.length > 0;
 
@@ -66,6 +70,8 @@ const IndexTab = (props: Props) => {
 										title={item.title}
 										description={item.description}
 										year={item.year}
+										setLightBoxData={setLightBoxData}
+										work={work}
 									/>
 								))}
 						</LayoutGrid>

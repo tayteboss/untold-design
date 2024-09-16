@@ -5,6 +5,7 @@ import Image from 'next/image';
 import pxToRem from '../../../utils/pxToRem';
 import React from 'react';
 import ConceptContentBlock from '../ConceptContentBlock';
+import useViewportWidth from '../../../hooks/useViewportWidth';
 
 const ConceptCarouselWrapper = styled.div`
 	position: relative;
@@ -45,9 +46,15 @@ const Mobile = styled.div`
 
 const ImageOuter = styled.div`
 	flex: 0 0 33vw;
+	cursor: zoom-in;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
 		flex: 0 0 50vw;
+	}
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		cursor: pointer;
+		flex: 0 0 90vw;
 	}
 `;
 
@@ -99,6 +106,10 @@ type Props = {
 	setAccordionActive: (value: number) => void;
 	accordionActive: boolean;
 	index: number;
+	setLightBoxData: (value: {
+		images: false | ProjectType['concepts'][0]['images'];
+		index: number;
+	}) => void;
 };
 
 const ConceptCarousel = (props: Props) => {
@@ -108,11 +119,15 @@ const ConceptCarousel = (props: Props) => {
 		description,
 		pdf,
 		setAccordionActive,
+		setLightBoxData,
 		accordionActive,
 		index
 	} = props;
 
 	const hasImages = images?.length > 0;
+
+	const viewport = useViewportWidth();
+	const isMobile = viewport === 'mobile' || viewport === 'tabletPortrait';
 
 	return (
 		<ConceptCarouselWrapper>
@@ -125,7 +140,15 @@ const ConceptCarousel = (props: Props) => {
 				{hasImages &&
 					images.map((image, i) => (
 						<React.Fragment key={i}>
-							<ImageOuter>
+							<ImageOuter
+								onClick={() => {
+									if (isMobile) return;
+									setLightBoxData({
+										images: images,
+										index: i
+									});
+								}}
+							>
 								<ImageWrapper>
 									<ImageInner>
 										<Image

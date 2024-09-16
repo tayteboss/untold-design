@@ -3,7 +3,8 @@ import client from '../client';
 import {
 	ProjectType,
 	SiteSettingsType,
-	TransitionsType
+	TransitionsType,
+	WorkType
 } from '../shared/types/types';
 import { motion } from 'framer-motion';
 import { NextSeo } from 'next-seo';
@@ -14,6 +15,7 @@ import { siteSettingsQueryString } from '../lib/sanityQueries';
 import Thankyou from '../components/blocks/Thankyou';
 import { useState } from 'react';
 import Link from 'next/link';
+import ConceptLightBox from '../components/blocks/ConceptLightBox';
 
 const PageWrapper = styled(motion.div)`
 	min-height: 50vh;
@@ -66,6 +68,10 @@ const Page = (props: Props) => {
 	const { data, siteSettings, pageTransitionVariants } = props;
 
 	const [accordionActive, setAccordionActive] = useState<number>(0);
+	const [lightBoxData, setLightBoxData] = useState<{
+		images: false | ProjectType['concepts'][0]['images'] | WorkType[];
+		index: number;
+	}>({ images: false, index: 0 });
 
 	const hasConcepts = data?.concepts?.length > 0;
 
@@ -80,6 +86,12 @@ const Page = (props: Props) => {
 				title={`${data?.clientName} - ${data?.propertyName}`}
 				noindex={true}
 				nofollow={true}
+			/>
+			<ConceptLightBox
+				isActive={!!lightBoxData.images}
+				data={lightBoxData.images}
+				index={lightBoxData.index}
+				setLightBoxData={setLightBoxData}
 			/>
 			<LoadingScreen
 				line1="© UNTOLD DESIGN"
@@ -98,6 +110,7 @@ const Page = (props: Props) => {
 							images={concept?.images}
 							setAccordionActive={setAccordionActive}
 							accordionActive={accordionActive === i}
+							setLightBoxData={setLightBoxData}
 							index={i}
 						/>
 					))}
