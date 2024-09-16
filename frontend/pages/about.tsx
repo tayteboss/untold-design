@@ -64,6 +64,7 @@ const ContactItem = styled(motion.div)`
 const ContactTitle = styled.h4`
 	color: var(--colour-black);
 	text-transform: uppercase;
+	font-weight: 200;
 `;
 
 const ContactLink = styled.div`
@@ -77,6 +78,7 @@ const Tagline = styled.h1`
 	text-align: center;
 	text-transform: unset;
 	font-family: var(--font-bold);
+	font-weight: 400;
 `;
 
 const ListWrapper = styled(motion.div)`

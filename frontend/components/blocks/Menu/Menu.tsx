@@ -73,6 +73,7 @@ const ContactItem = styled(motion.div)`
 const ContactTitle = styled.h4`
 	color: var(--colour-white);
 	text-transform: uppercase;
+	font-weight: 400;
 `;
 
 const ContactLink = styled.div`

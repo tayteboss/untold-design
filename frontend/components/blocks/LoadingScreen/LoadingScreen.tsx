@@ -22,15 +22,8 @@ const Line = styled(motion.h4)`
 	text-align: center;
 	color: var(--colour-white);
 	font-family: var(--font-bold);
-`;
-
-const LoadingLine = styled(motion.div)`
-	background: var(--colour-white);
-	height: 5px;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 1001;
+	text-decoration: none !important;
+	font-weight: 400;
 `;
 
 const wrapperVariants = {

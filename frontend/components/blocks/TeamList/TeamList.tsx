@@ -27,6 +27,7 @@ const TeamListWrapper = styled.div<{ $isHovered: boolean }>`
 const Title = styled.h4`
 	text-align: center;
 	margin-bottom: ${pxToRem(10)};
+	font-weight: 200;
 `;
 
 const List = styled(motion.ul)`

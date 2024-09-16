@@ -25,6 +25,8 @@ const ThankyouWrapper = styled.section`
 `;
 
 const Text = styled.p`
+	font-family: var(--font-bold);
+
 	&.type-h1 {
 		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(16)};

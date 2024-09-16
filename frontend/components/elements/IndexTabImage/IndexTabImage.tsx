@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import pxToRem from '../../../utils/pxToRem';
 import { ProjectType, WorkType } from '../../../shared/types/types';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import useViewportWidth from '../../../hooks/useViewportWidth';
 
 const IndexTabImageWrapper = styled(motion.div)`
@@ -16,6 +15,7 @@ const IndexTabImageWrapper = styled(motion.div)`
 
 		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 			cursor: pointer;
+			filter: grayscale(0) !important;
 		}
 	}
 
@@ -25,16 +25,12 @@ const IndexTabImageWrapper = styled(motion.div)`
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		grid-column: span 6;
+
+		filter: grayscale(0) !important;
 	}
 
 	@media ${(props) => props.theme.mediaBreakpoints.mobile} {
 		grid-column: 1 / -1;
-	}
-
-	img {
-		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-			filter: grayscale(0) !important;
-		}
 	}
 `;
 

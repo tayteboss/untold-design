@@ -16,7 +16,9 @@ const ContactListWrapper = styled.div`
 	}
 `;
 
-const Title = styled.h4``;
+const Title = styled.h4`
+	font-weight: 200;
+`;
 
 const List = styled(motion.ul)`
 	a {

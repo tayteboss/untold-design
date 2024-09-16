@@ -30,6 +30,7 @@ const TitleWrapper = styled.div`
 const Title = styled.h2`
 	font-size: ${pxToRem(32)};
 	line-height: ${pxToRem(32)};
+	font-weight: 400;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		font-size: ${pxToRem(20)};

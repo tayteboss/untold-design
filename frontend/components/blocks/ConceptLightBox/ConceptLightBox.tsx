@@ -89,9 +89,6 @@ type Props = {
 const ConceptLightBox = (props: Props) => {
 	const { isActive, data, index, setLightBoxData } = props;
 
-	console.log('data', data);
-	console.log('index', index);
-
 	const [emblaRef, emblaApi] = useEmblaCarousel({
 		loop: false,
 		align: 'center',

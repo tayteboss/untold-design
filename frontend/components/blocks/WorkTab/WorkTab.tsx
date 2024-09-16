@@ -8,6 +8,10 @@ const WorkTabWrapper = styled.section`
 	margin-top: var(--header-h);
 	height: calc(100vh - (var(--footer-h) + var(--header-h)));
 	position: relative;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		height: 100dvh;
+	}
 `;
 
 const CounterWrapper = styled.div`
