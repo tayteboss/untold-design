@@ -60,8 +60,8 @@ const Text = styled.p`
 
 	&.type-small {
 		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-			font-size: ${pxToRem(10)};
-			line-height: ${pxToRem(10)};
+			font-size: ${pxToRem(12)};
+			line-height: ${pxToRem(12)};
 		}
 	}
 `;
@@ -84,13 +84,13 @@ const wrapperVariants = {
 	hidden: {
 		opacity: 0,
 		transition: {
-			duration: 0.01
+			duration: 0.1
 		}
 	},
 	visible: {
 		opacity: 1,
 		transition: {
-			duration: 0.01
+			duration: 0.1
 		}
 	}
 };
@@ -122,7 +122,10 @@ const IndexTabImage = (props: Props) => {
 			variants={wrapperVariants}
 			onClick={() => {
 				if (isMobile) return;
-				setLightBoxData({ images: work, index: index - 1 });
+				setLightBoxData({
+					images: work,
+					index: index - 1
+				});
 			}}
 		>
 			<Inner>

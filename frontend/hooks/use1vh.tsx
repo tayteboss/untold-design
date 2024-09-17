@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const use1vh = () => {
 	useEffect(() => {
 		const set1vh = () => {
-			const vh: number = document.documentElement.clientHeight * 0.01;
+			const vh: number = document.documentElement.clientHeight * 0.1;
 			document.documentElement.style.setProperty('--vh', `${vh}px`);
 		};
 		set1vh();

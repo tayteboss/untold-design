@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { SiteSettingsType } from '../../../shared/types/types';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -8,7 +7,7 @@ const LoadingScreenWrapper = styled(motion.div)`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100vh;
+	height: 100dvh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -64,14 +63,14 @@ const firstLineVariants = {
 	hidden: {
 		y: 30,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	},
 	visible: {
 		y: 0,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	},
@@ -79,7 +78,7 @@ const firstLineVariants = {
 		y: 0,
 		opacity: 0,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	}
@@ -89,14 +88,14 @@ const lineVariants = {
 	hidden: {
 		opacity: 0,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	},
 	visible: {
 		opacity: 1,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	},
@@ -104,7 +103,7 @@ const lineVariants = {
 		y: 0,
 		opacity: 0,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			ease: 'easeInOut'
 		}
 	}
@@ -131,7 +130,7 @@ const lineVariants = {
 // 		width: '100%',
 // 		opacity: 1,
 // 		transition: {
-// 			duration: 0.01, // Match this with the width animation if needed
+// 			duration: 0.1, // Match this with the width animation if needed
 // 			ease: 'easeInOut'
 // 		},
 // 		transitionEnd: {

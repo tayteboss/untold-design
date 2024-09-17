@@ -19,6 +19,10 @@ import ConceptLightBox from '../components/blocks/ConceptLightBox';
 
 const PageWrapper = styled(motion.div)`
 	min-height: 50vh;
+
+	.embla__slide {
+		padding-bottom: 0;
+	}
 `;
 
 const ConceptsWrapper = styled.div`

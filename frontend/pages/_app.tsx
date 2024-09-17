@@ -12,7 +12,7 @@ import { TransitionsType } from '../shared/types/types';
 import useHeaderHeight from '../hooks/useHeaderHeight';
 
 const pageTransitionVariants: TransitionsType = {
-	hidden: { opacity: 0, transition: { duration: 0.01 } },
+	hidden: { opacity: 0, transition: { duration: 0.1 } },
 	visible: { opacity: 1, transition: { duration: 0.1 } }
 };
 
@@ -54,6 +54,12 @@ const App = (props: Props) => {
 			clearTimeout(timer);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (router.asPath === '/' || router.asPath === '/#home') {
+			setHomePageTab('work');
+		}
+	}, [router]);
 
 	return (
 		<>

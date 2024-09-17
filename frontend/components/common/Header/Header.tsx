@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import pxToRem from '../../../utils/pxToRem';
 import { usePathname, useRouter } from 'next/navigation';
+import LinkSwitchButton from '../../elements/LinkSwitchButton';
 
 const HeaderWrapper = styled.header`
 	position: fixed;
@@ -17,6 +18,12 @@ const HeaderWrapper = styled.header`
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		display: none;
+	}
+
+	.link-switch {
+		* {
+			color: var(--colour-white);
+		}
 	}
 `;
 
@@ -36,6 +43,8 @@ const Button = styled.button<{ $isActive: boolean }>`
 	opacity: ${(props) => props.$isActive && 0.2};
 	color: var(--colour-white);
 	font-family: var(--font-bold);
+
+	transition: all var(--transition-speed-default) var(--transition-ease);
 
 	&:hover {
 		opacity: 0.2;
@@ -63,16 +72,22 @@ const Header = (props: Props) => {
 		if (pathname === '/') {
 			setHomePageTab(tab);
 		} else {
-			router.push('/');
+			if (tab === 'index') {
+				router.push('/#index');
+			} else {
+				router.push('/#home');
+			}
 			setHomePageTab(tab);
 		}
 	};
 
 	return (
 		<HeaderWrapper className="header">
-			<Link href={pathname === '/' ? '/#home' : '/'}>
-				<Logo className="type-h2">© UNTOLD DESIGN</Logo>
-			</Link>
+			<LinkSwitchButton
+				initialTitle="© UNTOLD DESIGN"
+				hoveredTitle={`"MARKETING IN PRACTICE"`}
+				link={pathname === '/' ? '/#home' : '/'}
+			/>
 			<NavBar>
 				<NavItem>
 					<Button

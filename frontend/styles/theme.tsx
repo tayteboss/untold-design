@@ -19,7 +19,7 @@ export const theme = {
 		innerWrapper: '1920px'
 	},
 	transitionSpeed: {
-		default: '300ms',
+		default: '100ms',
 		fast: '200ms',
 		extraFast: '100ms',
 		slow: '500ms',

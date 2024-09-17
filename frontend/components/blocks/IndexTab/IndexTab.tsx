@@ -23,13 +23,13 @@ const wrapperVariants = {
 	hidden: {
 		opacity: 0,
 		transition: {
-			duration: 0.01
+			duration: 0.1
 		}
 	},
 	visible: {
 		opacity: 1,
 		transition: {
-			duration: 0.01,
+			duration: 0.1,
 			staggerChildren: 0.03,
 			when: 'beforeChildren'
 		}

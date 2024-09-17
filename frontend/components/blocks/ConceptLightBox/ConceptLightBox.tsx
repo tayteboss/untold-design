@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { ProjectType, WorkType } from '../../../shared/types/types';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import pxToRem from '../../../utils/pxToRem';
 import { useEffect } from 'react';
+import { useRef } from 'react';
+import { useClickOutside } from '../../../hooks/useClickOutside';
 
-const ConceptLightBoxWrapper = styled.div`
+const ConceptLightBoxWrapper = styled(motion.div)`
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -52,6 +54,7 @@ const Slide = styled.div<{
 			: isNext
 			? 'e-resize'
 			: 'pointer'};
+	padding-bottom: ${pxToRem(20)};
 
 	&.embla__slide {
 		flex: 0 0 60vw;
@@ -76,18 +79,82 @@ const ImageInner = styled.div`
 	width: 100%;
 `;
 
+const DetailsWrapper = styled.div`
+	display: flex;
+	position: absolute;
+	top: calc(100% + 10px);
+	left: 0;
+	width: 100%;
+	position: relative;
+	top: 20px;
+
+	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+		flex-direction: column;
+		align-items: center;
+	}
+`;
+
+const Text = styled.p`
+	&:first-child {
+		margin-right: ${pxToRem(70)};
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			margin-right: 0;
+		}
+	}
+
+	&:last-child {
+		margin-left: auto;
+		flex: 1;
+		text-align: right;
+
+		@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
+			flex: unset;
+			text-align: center;
+			margin-left: 0;
+		}
+	}
+`;
+
 type Props = {
 	isActive: boolean;
 	data: false | ProjectType['concepts'][0]['images'];
 	index: number;
+	detailsData: {
+		title?: string;
+		year?: string;
+		description?: string;
+	};
 	setLightBoxData: (value: {
 		images: false | ProjectType['concepts'][0]['images'] | WorkType[];
 		index: number;
+		detailsData: {
+			title?: string;
+			year?: string;
+			description?: string;
+		};
 	}) => void;
 };
 
+const wrapperVariants = {
+	hidden: {
+		opacity: 0,
+		transition: {
+			duration: 0.3,
+			ease: 'easeInOut'
+		}
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			duration: 0.3,
+			ease: 'easeInOut'
+		}
+	}
+};
+
 const ConceptLightBox = (props: Props) => {
-	const { isActive, data, index, setLightBoxData } = props;
+	const { isActive, data, index, detailsData, setLightBoxData } = props;
 
 	const [emblaRef, emblaApi] = useEmblaCarousel({
 		loop: false,
@@ -104,7 +171,8 @@ const ConceptLightBox = (props: Props) => {
 		emblaApi.on('select', () => {
 			setLightBoxData({
 				images: data,
-				index: emblaApi.selectedScrollSnap()
+				index: emblaApi.selectedScrollSnap(),
+				detailsData: detailsData
 			});
 		});
 	}, [emblaApi, setLightBoxData, data]);
@@ -113,7 +181,7 @@ const ConceptLightBox = (props: Props) => {
 	const handleClick = (i: number) => {
 		if (i === index) {
 			// If the active image is clicked, close the lightbox
-			setLightBoxData({ images: false, index: 0 });
+			setLightBoxData({ images: false, index: 0, detailsData: {} });
 		} else if (emblaApi) {
 			if (i < index) {
 				// Clicked on a previous image, go to previous
@@ -125,14 +193,37 @@ const ConceptLightBox = (props: Props) => {
 		}
 	};
 
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				setLightBoxData({ images: false, index: 0, detailsData: {} });
+			}
+		};
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, [setLightBoxData]);
+
+	const ref = useRef<HTMLDivElement>(null!);
+	useClickOutside(ref, () => {
+		setLightBoxData({ images: false, index: 0, detailsData: {} });
+	});
+
 	return (
 		<AnimatePresence>
 			{isActive && (
-				<ConceptLightBoxWrapper>
+				<ConceptLightBoxWrapper
+					variants={wrapperVariants}
+					initial="hidden"
+					animate="visible"
+					exit="hidden"
+				>
 					<ExitTrigger>
 						<Inner>
 							<Embla className="embla" ref={emblaRef}>
-								<Container className="embla__container">
+								<Container
+									className="embla__container"
+									ref={ref}
+								>
 									{hasImages &&
 										data.map((item, i) => {
 											return (
@@ -170,6 +261,29 @@ const ConceptLightBox = (props: Props) => {
 																sizes="70vw"
 															/>
 														</ImageInner>
+														<DetailsWrapper>
+															{item.title && (
+																<Text className="type-small">
+																	{
+																		item?.title
+																	}
+																</Text>
+															)}
+															{item?.description && (
+																<Text className="type-small">
+																	{
+																		item?.description
+																	}
+																</Text>
+															)}
+															{item?.year && (
+																<Text className="type-small">
+																	(
+																	{item?.year}
+																	)
+																</Text>
+															)}
+														</DetailsWrapper>
 													</ImageWrapper>
 												</Slide>
 											);

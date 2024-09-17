@@ -47,13 +47,13 @@ const TriggerWrapper = styled.div`
 	display: flex;
 `;
 
-const PrevTrigger = styled.button`
+const PrevTrigger = styled.div`
 	height: 100%;
 	flex: 1;
 	cursor: w-resize;
 `;
 
-const NextTrigger = styled.button`
+const NextTrigger = styled.div`
 	height: 100%;
 	flex: 1;
 	cursor: e-resize;

@@ -10,6 +10,7 @@ const ConceptContentBlockWrapper = styled.div`
 	flex: 0 0 33vw;
 	padding-left: ${pxToRem(20)};
 	gap: ${pxToRem(40)};
+	margin-right: ${pxToRem(20)};
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletMedium} {
 		flex: 0 0 50vw;
@@ -19,6 +20,7 @@ const ConceptContentBlockWrapper = styled.div`
 		flex: unset;
 		padding: 0 ${pxToRem(15)};
 		gap: ${pxToRem(15)};
+		margin-right: 0;
 	}
 `;
 
@@ -52,6 +54,8 @@ const Description = styled.p`
 const Pdf = styled.a`
 	text-transform: unset !important;
 	text-decoration: underline;
+
+	transition: all var(--transition-speed-default) var(--transition-ease);
 
 	&:hover {
 		opacity: 0.2;

@@ -17,14 +17,23 @@ const FooterWrapper = styled.footer`
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		display: none;
 	}
+
+	.link-switch {
+		min-width: 274px;
+
+		&:last-child {
+			text-align: right;
+		}
+	}
 `;
 
 const Aoc = styled.p`
 	color: var(--colour-black);
-	font-size: ${pxToRem(10)};
-	line-height: ${pxToRem(10)};
+	font-size: ${pxToRem(12)};
+	line-height: ${pxToRem(12)};
 	padding: 0 ${pxToRem(40)};
 	text-align: center;
+	flex: 3;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
 		display: none;

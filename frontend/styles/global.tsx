@@ -33,8 +33,8 @@ export const GlobalStyles = createGlobalStyle`
 	-webkit-text-size-adjust: 100%;
 
 	::selection {
-		background-color: white;
-		color: blue;
+		background-color: transparent;
+		color: red;
 	}
 
 	html {
@@ -152,8 +152,8 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	.type-small {
-		font-size: ${pxToRem(10)};
-		line-height: ${pxToRem(10)};
+		font-size: ${pxToRem(12)};
+		line-height: ${pxToRem(12)};
 
 		@media ${theme.mediaBreakpoints.tabletPortrait} {
 			font-size: ${pxToRem(12)};
