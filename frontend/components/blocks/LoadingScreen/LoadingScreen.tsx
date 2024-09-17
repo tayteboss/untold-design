@@ -13,11 +13,11 @@ const LoadingScreenWrapper = styled(motion.div)`
 	justify-content: center;
 	align-items: center;
 	background-color: var(--colour-black);
-	z-index: 1000;
+	z-index: 5000;
 	pointer-events: none;
 `;
 
-const Line = styled(motion.h4)`
+const Line = styled(motion.div)`
 	text-align: center;
 	color: var(--colour-white);
 	font-family: var(--font-bold);
@@ -177,10 +177,18 @@ const LoadingScreen = (props: Props) => {
 				exit="exit"
 				onAnimationComplete={() => setLoadingAnimationComplete?.(true)}
 			>
-				<Line variants={firstLineVariants}>{line1 || ''}</Line>
-				<Line variants={lineVariants}>{line2 || ''}</Line>
-				<Line variants={lineVariants}>{line3 || ''}</Line>
-				<Line variants={lineVariants}>{line4 || ''}</Line>
+				<Line className="type-h4" variants={firstLineVariants}>
+					{line1 || ''}
+				</Line>
+				<Line className="type-h4" variants={lineVariants}>
+					{line2 || ''}
+				</Line>
+				<Line className="type-h4" variants={lineVariants}>
+					{line3 || ''}
+				</Line>
+				<Line className="type-h4" variants={lineVariants}>
+					{line4 || ''}
+				</Line>
 			</LoadingScreenWrapper>
 		</>
 	);

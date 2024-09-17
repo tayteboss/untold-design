@@ -89,8 +89,7 @@ const DetailsWrapper = styled.div`
 	top: 20px;
 
 	@media ${(props) => props.theme.mediaBreakpoints.tabletPortrait} {
-		flex-direction: column;
-		align-items: center;
+		display: none;
 	}
 `;
 
