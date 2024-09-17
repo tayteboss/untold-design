@@ -17,7 +17,7 @@ const LoadingScreenWrapper = styled(motion.div)`
 	pointer-events: none;
 `;
 
-const Line = styled(motion.div)`
+const Line = styled(motion.a)`
 	text-align: center;
 	color: var(--colour-white);
 	font-family: var(--font-bold);
