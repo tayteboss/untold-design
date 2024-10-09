@@ -187,6 +187,11 @@ export async function getStaticProps({ params }: any) {
 							}
 						}
 					},
+					video {
+						asset-> {
+							playbackId
+						}
+					}
 				},
 				pdf {
 					asset-> {

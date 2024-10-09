@@ -69,6 +69,7 @@ export type WorkType = {
 	image: {
 		asset: { url: string; metadata: { lqip: string } };
 	};
+	video: { asset: { playbackId: string } };
 };
 
 export type ProjectType = {
@@ -85,6 +86,7 @@ export type ProjectType = {
 			image: {
 				asset: { url: string };
 			};
+			video: { asset: { playbackId: string } };
 		}[];
 	}[];
 };

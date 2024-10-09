@@ -67,6 +67,11 @@ export const workQueryString = `
 					lqip
 				}
 			}
+		},
+		video {
+			asset-> {
+				playbackId
+			}
 		}
 	}
 `;

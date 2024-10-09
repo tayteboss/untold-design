@@ -4,6 +4,7 @@ import pxToRem from '../../../utils/pxToRem';
 import { ProjectType, WorkType } from '../../../shared/types/types';
 import { motion } from 'framer-motion';
 import useViewportWidth from '../../../hooks/useViewportWidth';
+import MuxPlayer from '@mux/mux-player-react/lazy';
 
 const IndexTabImageWrapper = styled(motion.div)`
 	grid-column: span 3;
@@ -46,6 +47,12 @@ const ImageWrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+
+	mux-player {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 `;
 
 const DetailsWrapper = styled.div`
@@ -78,6 +85,8 @@ type Props = {
 		index: number;
 	}) => void;
 	work: WorkType[];
+	video?: WorkType['video'];
+	useImage?: boolean;
 };
 
 const wrapperVariants = {
@@ -104,10 +113,13 @@ const IndexTabImage = (props: Props) => {
 		year,
 		isPriority,
 		setLightBoxData,
-		work
+		work,
+		video,
+		useImage
 	} = props;
 
 	const imageUrl = image?.asset?.url;
+	const playbackId = video?.asset?.playbackId;
 	const blurDataURL = image?.asset?.metadata?.lqip;
 
 	const handleIndex = (index: number) => {
@@ -129,7 +141,7 @@ const IndexTabImage = (props: Props) => {
 			}}
 		>
 			<Inner>
-				{imageUrl && (
+				{imageUrl && useImage && (
 					<ImageWrapper>
 						<Image
 							src={imageUrl}
@@ -141,6 +153,21 @@ const IndexTabImage = (props: Props) => {
 								objectFit: 'cover'
 							}}
 							sizes="33vw"
+						/>
+					</ImageWrapper>
+				)}
+				{!useImage && playbackId && (
+					<ImageWrapper>
+						<MuxPlayer
+							streamType="on-demand"
+							playbackId={playbackId}
+							autoPlay="muted"
+							loop={true}
+							thumbnailTime={1}
+							loading="viewport"
+							preload="auto"
+							muted
+							playsInline={true}
 						/>
 					</ImageWrapper>
 				)}

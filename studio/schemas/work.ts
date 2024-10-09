@@ -35,6 +35,13 @@ export default {
       title: 'Image',
       name: 'image',
       type: 'image',
+      description: 'Please only use a video or image',
+    },
+    {
+      title: 'Video',
+      name: 'video',
+      type: 'mux.video',
+      description: 'Please only use a video or image',
     },
   ],
 }

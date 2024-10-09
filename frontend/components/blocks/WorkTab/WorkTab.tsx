@@ -93,17 +93,23 @@ const WorkTab = (props: Props) => {
 					</TriggerWrapper>
 					<WorkTabWrapper>
 						{hasWork &&
-							work.map((item, i) => (
-								<WorkTabImage
-									isActive={activeIndex === i}
-									title={item?.title}
-									description={item?.description}
-									year={item?.year}
-									image={item?.image}
-									key={i}
-									isPriority={i === 0}
-								/>
-							))}
+							work.map((item, i) => {
+								const isImage = !!item?.image;
+
+								return (
+									<WorkTabImage
+										isActive={activeIndex === i}
+										title={item?.title}
+										description={item?.description}
+										year={item?.year}
+										image={item?.image}
+										video={item?.video}
+										useImage={isImage}
+										key={i}
+										isPriority={i === 0}
+									/>
+								);
+							})}
 					</WorkTabWrapper>
 					<CounterWrapper>
 						<Index className="type-small">

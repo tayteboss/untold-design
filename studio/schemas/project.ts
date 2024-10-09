@@ -68,12 +68,12 @@ export default {
               type: 'file',
             },
             {
-              title: 'Images',
+              title: 'Media',
               name: 'images',
               type: 'array',
               of: [
                 {
-                  title: 'Image',
+                  title: 'Media Block',
                   name: 'imageBlock',
                   type: 'object',
                   fields: [
@@ -81,7 +81,13 @@ export default {
                       title: 'Image',
                       name: 'image',
                       type: 'image',
-                      validation: (Rule: any) => Rule.required(),
+                      description: 'Please only use a video or image',
+                    },
+                    {
+                      title: 'Video',
+                      name: 'video',
+                      type: 'mux.video',
+                      description: 'Please only use a video or image',
                     },
                     {
                       title: 'Caption',

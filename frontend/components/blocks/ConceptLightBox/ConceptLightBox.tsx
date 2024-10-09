@@ -7,6 +7,7 @@ import pxToRem from '../../../utils/pxToRem';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useClickOutside } from '../../../hooks/useClickOutside';
+import MuxPlayer from '@mux/mux-player-react/lazy';
 
 const ConceptLightBoxWrapper = styled(motion.div)`
 	position: fixed;
@@ -77,6 +78,13 @@ const ImageInner = styled.div`
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
+
+	img,
+	mux-player {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
 `;
 
 const DetailsWrapper = styled.div`
@@ -225,6 +233,7 @@ const ConceptLightBox = (props: Props) => {
 								>
 									{hasImages &&
 										data.map((item, i) => {
+											const isImage = !!item?.image;
 											return (
 												<Slide
 													className="embla__slide"
@@ -238,27 +247,61 @@ const ConceptLightBox = (props: Props) => {
 												>
 													<ImageWrapper>
 														<ImageInner>
-															<Image
-																src={
-																	item?.image
-																		?.asset
-																		.url ||
-																	''
-																}
-																alt={
-																	item?.caption ||
-																	''
-																}
-																priority={
-																	i === 0
-																}
-																fill
-																style={{
-																	objectFit:
-																		'cover'
-																}}
-																sizes="70vw"
-															/>
+															{isImage &&
+																item?.image
+																	?.asset
+																	.url && (
+																	<Image
+																		src={
+																			item
+																				?.image
+																				?.asset
+																				.url ||
+																			''
+																		}
+																		alt={
+																			item?.caption ||
+																			''
+																		}
+																		priority={
+																			i ===
+																			0
+																		}
+																		fill
+																		style={{
+																			objectFit:
+																				'cover'
+																		}}
+																		sizes="70vw"
+																	/>
+																)}
+															{!isImage &&
+																item?.video
+																	?.asset
+																	?.playbackId && (
+																	<MuxPlayer
+																		streamType="on-demand"
+																		playbackId={
+																			item
+																				?.video
+																				?.asset
+																				?.playbackId
+																		}
+																		autoPlay="muted"
+																		loop={
+																			true
+																		}
+																		thumbnailTime={
+																			1
+																		}
+																		loading="viewport"
+																		preload="auto"
+																		muted
+																		playsInline={
+																			true
+																		}
+																	/>
+																)}
 														</ImageInner>
 														<DetailsWrapper>
 															{item.title && (

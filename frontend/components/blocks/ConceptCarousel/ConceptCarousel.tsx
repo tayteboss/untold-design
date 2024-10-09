@@ -7,6 +7,7 @@ import ConceptContentBlock from '../ConceptContentBlock';
 import useViewportWidth from '../../../hooks/useViewportWidth';
 import useEmblaCarousel from 'embla-carousel-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import MuxPlayer from '@mux/mux-player-react/lazy';
 
 const ConceptCarouselWrapper = styled.div`
 	position: relative;
@@ -53,6 +54,13 @@ const ImageInner = styled.div`
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+
+	img,
+	mux-player {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
 `;
 
 const Caption = styled.p`
@@ -186,30 +194,53 @@ const ConceptCarousel = (props: Props) => {
 						pdf={pdf}
 					/>
 					{hasImages &&
-						images.map((image, i) => (
-							<EmblaSlide
-								key={i}
-								onClick={() => handleImageClick(i)}
-							>
-								<ImageWrapper>
-									<ImageInner>
-										<Image
-											src={image?.image?.asset.url}
-											alt={image?.caption}
-											priority={i <= 2}
-											fill
-											style={{
-												objectFit: 'cover'
-											}}
-											sizes="33vw"
-										/>
-									</ImageInner>
-								</ImageWrapper>
-								{image?.caption && (
-									<Caption>{image?.caption}</Caption>
-								)}
-							</EmblaSlide>
-						))}
+						images.map((item, i) => {
+							const isImage = !!item?.image?.asset;
+							return (
+								<EmblaSlide
+									key={i}
+									onClick={() => handleImageClick(i)}
+								>
+									<ImageWrapper>
+										<ImageInner>
+											{isImage && (
+												<Image
+													src={item?.image?.asset.url}
+													alt={item?.caption}
+													priority={i <= 2}
+													fill
+													style={{
+														objectFit: 'cover'
+													}}
+													sizes="33vw"
+												/>
+											)}
+											{!isImage &&
+												item?.video?.asset
+													?.playbackId && (
+													<MuxPlayer
+														streamType="on-demand"
+														playbackId={
+															item?.video?.asset
+																?.playbackId
+														}
+														autoPlay="muted"
+														loop={true}
+														thumbnailTime={1}
+														loading="viewport"
+														preload="auto"
+														muted
+														playsInline={true}
+													/>
+												)}
+										</ImageInner>
+									</ImageWrapper>
+									{item?.caption && (
+										<Caption>{item?.caption}</Caption>
+									)}
+								</EmblaSlide>
+							);
+						})}
 				</EmblaContainer>
 			</Embla>
 			<Mobile>

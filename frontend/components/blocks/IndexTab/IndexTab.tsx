@@ -62,18 +62,23 @@ const IndexTab = (props: Props) => {
 					<LayoutWrapper>
 						<LayoutGrid>
 							{hasWork &&
-								work.map((item, i) => (
-									<IndexTabImage
-										key={i}
-										index={i + 1}
-										image={item.image}
-										title={item.title}
-										description={item.description}
-										year={item.year}
-										setLightBoxData={setLightBoxData}
-										work={work}
-									/>
-								))}
+								work.map((item, i) => {
+									const isImage = !!item?.image;
+									return (
+										<IndexTabImage
+											key={i}
+											index={i + 1}
+											image={item.image}
+											video={item.video}
+											useImage={isImage}
+											title={item.title}
+											description={item.description}
+											year={item.year}
+											setLightBoxData={setLightBoxData}
+											work={work}
+										/>
+									);
+								})}
 						</LayoutGrid>
 					</LayoutWrapper>
 				</IndexTabWrapper>
