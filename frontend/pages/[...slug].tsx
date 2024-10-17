@@ -99,9 +99,9 @@ const Page = (props: Props) => {
 			/>
 			<LoadingScreen
 				line1="© UNTOLD DESIGN"
-				line2={`{${data?.propertyName}}`}
-				line3={`{${data?.clientName}}`}
-				line4={`{${data?.date}}`}
+				line2={`${data?.propertyName}`}
+				line3={`${data?.clientName}`}
+				line4={`${data?.date}`}
 			/>
 			<ConceptsWrapper>
 				{hasConcepts &&
