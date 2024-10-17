@@ -60,7 +60,6 @@ export default {
               title: 'Description',
               name: 'description',
               type: 'text',
-              validation: (Rule: any) => Rule.required(),
             },
             {
               title: 'PDF',

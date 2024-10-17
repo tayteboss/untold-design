@@ -177,18 +177,26 @@ const LoadingScreen = (props: Props) => {
 				exit="exit"
 				onAnimationComplete={() => setLoadingAnimationComplete?.(true)}
 			>
-				<Line className="type-h4" variants={firstLineVariants}>
-					{line1 || ''}
-				</Line>
-				<Line className="type-h4" variants={lineVariants}>
-					{line2 || ''}
-				</Line>
-				<Line className="type-h4" variants={lineVariants}>
-					{line3 || ''}
-				</Line>
-				<Line className="type-h4" variants={lineVariants}>
-					{line4 || ''}
-				</Line>
+				{line1 && (
+					<Line className="type-h4" variants={firstLineVariants}>
+						{line1 || ''}
+					</Line>
+				)}
+				{line2 && (
+					<Line className="type-h4" variants={lineVariants}>
+						{line2 || ''}
+					</Line>
+				)}
+				{line3 && (
+					<Line className="type-h4" variants={lineVariants}>
+						{line3 || ''}
+					</Line>
+				)}
+				{line4 && (
+					<Line className="type-h4" variants={lineVariants}>
+						{line4 || ''}
+					</Line>
+				)}
 			</LoadingScreenWrapper>
 		</>
 	);
