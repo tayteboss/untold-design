@@ -152,7 +152,6 @@ const IndexTabImage = (props: Props) => {
 							style={{
 								objectFit: 'cover'
 							}}
-							sizes="33vw"
 						/>
 					</ImageWrapper>
 				)}

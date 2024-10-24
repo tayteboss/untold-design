@@ -212,7 +212,7 @@ const ConceptCarousel = (props: Props) => {
 													style={{
 														objectFit: 'cover'
 													}}
-													sizes="33vw"
+													sizes="40vw"
 												/>
 											)}
 											{!isImage &&
@@ -279,7 +279,7 @@ const ConceptCarousel = (props: Props) => {
 																objectFit:
 																	'cover'
 															}}
-															sizes="33vw"
+															sizes="100vw"
 														/>
 													</ImageInner>
 												</ImageWrapper>

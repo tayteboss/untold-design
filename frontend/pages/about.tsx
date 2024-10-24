@@ -239,7 +239,6 @@ const Page = (props: Props) => {
 								}'s headshot`}
 								width={0}
 								height={0}
-								sizes="33vw"
 								style={{
 									objectFit: 'contain',
 									width: '100%',
